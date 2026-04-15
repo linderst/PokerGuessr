@@ -1,0 +1,205 @@
+import SwiftUI
+import Foundation
+
+struct MenuView: View {
+    
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var hapticsManager: HapticsManager
+    
+    @State private var selectedCategory: String = QuestionCategory.alle.rawValue
+    @State private var selectedDifficulty: Difficulty = .medium
+    @State private var showCategorySheet = false
+    @State private var showSettings = false
+    @State private var showThemeSettings = false
+    @State private var startGame = false
+    @State private var players: [Player] = []
+    @State private var newPlayerName: String = ""
+    
+    @AppStorage("selectedModePersistent") private var selectedModePersistent: Bool = true
+    
+    // Settings
+    @AppStorage("volume") private var volume: Double = 0.8
+    @AppStorage("unlimitedRounds") private var unlimitedRounds: Bool = false
+    @AppStorage("roundCount") private var roundCount: Int = 8
+    @AppStorage("hapticsEnabled") private var hapticsEnabled: Bool = true
+    @AppStorage("trackOverallScore") private var trackOverallScore: Bool = false
+    @AppStorage("isMultiplayerMode") private var isMultiplayerMode: Bool = true
+    @AppStorage("tipsCount") private var tipsCount: Int = 3
+    @AppStorage("separateRanking") private var separateRanking: Bool = false
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                RootBackground()
+                
+                VStack(spacing: 20) {
+                    // MARK: - Titel
+                    AnimatedPokerTitle()
+                        .padding(.top, 60)
+                    
+                    // MARK: - Pokerchip Icon
+                    PokerChipView()
+                        .padding(.top, 20)
+                    
+                    Spacer()
+                    
+                    // MARK: - Spielmodus (Single / Multi)
+                    Picker("Spielmodus", selection: $isMultiplayerMode) {
+                        Text("Nur Fragen").tag(false)
+                        Text("Multiplayer").tag(true)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+                    
+                    // MARK: - Kategorie-Auswahl
+                    Button {
+                        hapticsManager.light()
+                        showCategorySheet = true
+                    } label: {
+                        ThemedCard {
+                            HStack {
+                                Text("Kategorie")
+                                    .foregroundColor(themeManager.palette.cardTextPrimary)
+                                
+                                Spacer()
+                                
+                                Text(selectedCategory)
+                                    .foregroundColor(themeManager.palette.cardTextSecondary)
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(themeManager.palette.cardTextSecondary)
+                            }
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+                    
+                    // MARK: - Schwierigkeitsgrad
+                    DifficultySelector(selectedDifficulty: $selectedDifficulty)
+                        .padding(.horizontal)
+                    
+                    // MARK: - Spieler
+                    if isMultiplayerMode {
+                        PlayersSection(
+                            players: $players,
+                            newPlayerName: $newPlayerName
+                        )
+                    }
+                    
+                    // MARK: - Start-Button
+                    startButton
+                }
+            }
+            .onAppear {
+                hapticsManager.hapticsEnabled = hapticsEnabled
+            }
+            .onChange(of: hapticsEnabled) { _, newValue in
+                hapticsManager.hapticsEnabled = newValue
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        hapticsManager.light()
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title3)
+                            .foregroundColor(themeManager.palette.screenTextPrimary)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        hapticsManager.light()
+                        showThemeSettings = true
+                    } label: {
+                        Image(systemName: "paintbrush.fill")
+                            .font(.title3)
+                            .foregroundColor(themeManager.palette.screenTextPrimary)
+                    }
+                }
+            }
+            .navigationDestination(isPresented: $startGame) {
+                GameView(
+                    category: selectedCategory,
+                    selectedDifficulty: selectedDifficulty,
+                    persistentMode: selectedModePersistent,
+                    totalRounds: unlimitedRounds ? nil : roundCount,
+                    players: isMultiplayerMode ? players : [],
+                    trackOverallScore: trackOverallScore,
+                    tipsCount: tipsCount,
+                    separateRanking: separateRanking
+                )
+                .environmentObject(hapticsManager)
+            }
+            .sheet(isPresented: $showCategorySheet) {
+                CategorySheet(selectedCategory: $selectedCategory)
+                    .environmentObject(themeManager)
+                    .presentationDetents([.height(500)])
+                    .presentationDragIndicator(.visible)
+            }
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView(
+                    selectedModePersistent: $selectedModePersistent,
+                    volume: $volume,
+                    unlimitedRounds: $unlimitedRounds,
+                    roundCount: $roundCount,
+                    hapticsEnabled: $hapticsEnabled,
+                    trackOverallScore: $trackOverallScore,
+                    tipsCount: $tipsCount,
+                    separateRanking: $separateRanking
+                )
+                .environmentObject(themeManager)
+                .environmentObject(hapticsManager)
+            }
+            .sheet(isPresented: $showThemeSettings) {
+                DesignSettingsView()
+                    .environmentObject(themeManager)
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            }
+        }
+    }
+    
+    // MARK: - Start Button
+    private var startButton: some View {
+        VStack(spacing: 8) {
+            if isMultiplayerMode && players.count < 2 {
+                Text("Bitte füge mindestens 2 Spieler hinzu")
+                    .font(.caption)
+                    .foregroundColor(themeManager.palette.cardTextSecondary)
+            }
+            
+            Button {
+                hapticsManager.medium()
+                startGame = true
+            } label: {
+                Text("Spiel starten")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: (isMultiplayerMode && players.count < 2) ? [.gray, .gray.opacity(0.8)] : themeManager.palette.primaryButtonGradient,
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .foregroundColor(themeManager.palette.onPrimaryButton)
+                    .clipShape(RoundedRectangle(cornerRadius: 22))
+                    .shadow(color: themeManager.palette.primaryButtonGradient.first?.opacity(0.9) ?? .black,
+                            radius: 14, y: 7)
+            }
+            .disabled(isMultiplayerMode && players.count < 2)
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 50)
+    }
+}
+
+#Preview {
+    MenuView()
+        .environmentObject(ThemeManager())
+        .environmentObject(HapticsManager())
+}

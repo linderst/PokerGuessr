@@ -1,0 +1,635 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F378DA22EE24910001D5A90 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F378DA12EE24910001D5A90 /* FirebaseAI */; };
+		8F378DA62EE24910001D5A90 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8F378DA52EE24910001D5A90 /* FirebaseCore */; };
+		8F378DA82EE24910001D5A90 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8F378DA72EE24910001D5A90 /* FirebaseFirestore */; };
+		8F378DAA2EE24DB1001D5A90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F378DA92EE24DB1001D5A90 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F378CD82EDF6B55001D5A90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F378CC22EDF6B53001D5A90 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F378CC92EDF6B53001D5A90;
+			remoteInfo = "Poker Guessr";
+		};
+		8F378CE22EDF6B55001D5A90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F378CC22EDF6B53001D5A90 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F378CC92EDF6B53001D5A90;
+			remoteInfo = "Poker Guessr";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8F378CCA2EDF6B53001D5A90 /* Poker Guessr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Guessr.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F378CD72EDF6B55001D5A90 /* Poker GuessrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Poker GuessrTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F378CE12EDF6B55001D5A90 /* Poker GuessrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Poker GuessrUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F378DA92EE24DB1001D5A90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8F378CCC2EDF6B53001D5A90 /* Poker Guessr */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Poker Guessr";
+			sourceTree = "<group>";
+		};
+		8F378CDA2EDF6B55001D5A90 /* Poker GuessrTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Poker GuessrTests";
+			sourceTree = "<group>";
+		};
+		8F378CE42EDF6B55001D5A90 /* Poker GuessrUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Poker GuessrUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F378CC72EDF6B53001D5A90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F378DA82EE24910001D5A90 /* FirebaseFirestore in Frameworks */,
+				8F378DA62EE24910001D5A90 /* FirebaseCore in Frameworks */,
+				8F378DA22EE24910001D5A90 /* FirebaseAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CD42EDF6B55001D5A90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CDE2EDF6B55001D5A90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F378CC12EDF6B53001D5A90 = {
+			isa = PBXGroup;
+			children = (
+				8F378CCC2EDF6B53001D5A90 /* Poker Guessr */,
+				8F378CDA2EDF6B55001D5A90 /* Poker GuessrTests */,
+				8F378CE42EDF6B55001D5A90 /* Poker GuessrUITests */,
+				8F378CCB2EDF6B53001D5A90 /* Products */,
+				8F378DA92EE24DB1001D5A90 /* GoogleService-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		8F378CCB2EDF6B53001D5A90 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F378CCA2EDF6B53001D5A90 /* Poker Guessr.app */,
+				8F378CD72EDF6B55001D5A90 /* Poker GuessrTests.xctest */,
+				8F378CE12EDF6B55001D5A90 /* Poker GuessrUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F378CC92EDF6B53001D5A90 /* Poker Guessr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F378CEB2EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker Guessr" */;
+			buildPhases = (
+				8F378CC62EDF6B53001D5A90 /* Sources */,
+				8F378CC72EDF6B53001D5A90 /* Frameworks */,
+				8F378CC82EDF6B53001D5A90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8F378CCC2EDF6B53001D5A90 /* Poker Guessr */,
+			);
+			name = "Poker Guessr";
+			packageProductDependencies = (
+				8F378DA12EE24910001D5A90 /* FirebaseAI */,
+				8F378DA52EE24910001D5A90 /* FirebaseCore */,
+				8F378DA72EE24910001D5A90 /* FirebaseFirestore */,
+			);
+			productName = "Poker Guessr";
+			productReference = 8F378CCA2EDF6B53001D5A90 /* Poker Guessr.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8F378CD62EDF6B55001D5A90 /* Poker GuessrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F378CEE2EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker GuessrTests" */;
+			buildPhases = (
+				8F378CD32EDF6B55001D5A90 /* Sources */,
+				8F378CD42EDF6B55001D5A90 /* Frameworks */,
+				8F378CD52EDF6B55001D5A90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F378CD92EDF6B55001D5A90 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8F378CDA2EDF6B55001D5A90 /* Poker GuessrTests */,
+			);
+			name = "Poker GuessrTests";
+			packageProductDependencies = (
+			);
+			productName = "Poker GuessrTests";
+			productReference = 8F378CD72EDF6B55001D5A90 /* Poker GuessrTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8F378CE02EDF6B55001D5A90 /* Poker GuessrUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F378CF12EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker GuessrUITests" */;
+			buildPhases = (
+				8F378CDD2EDF6B55001D5A90 /* Sources */,
+				8F378CDE2EDF6B55001D5A90 /* Frameworks */,
+				8F378CDF2EDF6B55001D5A90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F378CE32EDF6B55001D5A90 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8F378CE42EDF6B55001D5A90 /* Poker GuessrUITests */,
+			);
+			name = "Poker GuessrUITests";
+			packageProductDependencies = (
+			);
+			productName = "Poker GuessrUITests";
+			productReference = 8F378CE12EDF6B55001D5A90 /* Poker GuessrUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F378CC22EDF6B53001D5A90 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					8F378CC92EDF6B53001D5A90 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					8F378CD62EDF6B55001D5A90 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 8F378CC92EDF6B53001D5A90;
+					};
+					8F378CE02EDF6B55001D5A90 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 8F378CC92EDF6B53001D5A90;
+					};
+				};
+			};
+			buildConfigurationList = 8F378CC52EDF6B53001D5A90 /* Build configuration list for PBXProject "Poker Guessr" */;
+			developmentRegion = de;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8F378CC12EDF6B53001D5A90;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F378DA02EE24910001D5A90 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8F378CCB2EDF6B53001D5A90 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F378CC92EDF6B53001D5A90 /* Poker Guessr */,
+				8F378CD62EDF6B55001D5A90 /* Poker GuessrTests */,
+				8F378CE02EDF6B55001D5A90 /* Poker GuessrUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F378CC82EDF6B53001D5A90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F378DAA2EE24DB1001D5A90 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CD52EDF6B55001D5A90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CDF2EDF6B55001D5A90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F378CC62EDF6B53001D5A90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CD32EDF6B55001D5A90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F378CDD2EDF6B55001D5A90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F378CD92EDF6B55001D5A90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F378CC92EDF6B53001D5A90 /* Poker Guessr */;
+			targetProxy = 8F378CD82EDF6B55001D5A90 /* PBXContainerItemProxy */;
+		};
+		8F378CE32EDF6B55001D5A90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F378CC92EDF6B53001D5A90 /* Poker Guessr */;
+			targetProxy = 8F378CE22EDF6B55001D5A90 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8F378CE92EDF6B55001D5A90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8F378CEA2EDF6B55001D5A90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F378CEC2EDF6B55001D5A90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefanlinder.pokerguessr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F378CED2EDF6B55001D5A90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefanlinder.pokerguessr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8F378CEF2EDF6B55001D5A90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "s.Poker-GuessrTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poker Guessr.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Poker Guessr";
+			};
+			name = Debug;
+		};
+		8F378CF02EDF6B55001D5A90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "s.Poker-GuessrTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poker Guessr.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Poker Guessr";
+			};
+			name = Release;
+		};
+		8F378CF22EDF6B55001D5A90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "s.Poker-GuessrUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Poker Guessr";
+			};
+			name = Debug;
+		};
+		8F378CF32EDF6B55001D5A90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FDASPJZ83;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "s.Poker-GuessrUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Poker Guessr";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F378CC52EDF6B53001D5A90 /* Build configuration list for PBXProject "Poker Guessr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F378CE92EDF6B55001D5A90 /* Debug */,
+				8F378CEA2EDF6B55001D5A90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F378CEB2EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker Guessr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F378CEC2EDF6B55001D5A90 /* Debug */,
+				8F378CED2EDF6B55001D5A90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F378CEE2EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker GuessrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F378CEF2EDF6B55001D5A90 /* Debug */,
+				8F378CF02EDF6B55001D5A90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F378CF12EDF6B55001D5A90 /* Build configuration list for PBXNativeTarget "Poker GuessrUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F378CF22EDF6B55001D5A90 /* Debug */,
+				8F378CF32EDF6B55001D5A90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F378DA02EE24910001D5A90 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F378DA12EE24910001D5A90 /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F378DA02EE24910001D5A90 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		8F378DA52EE24910001D5A90 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F378DA02EE24910001D5A90 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		8F378DA72EE24910001D5A90 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F378DA02EE24910001D5A90 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8F378CC22EDF6B53001D5A90 /* Project object */;
+}
