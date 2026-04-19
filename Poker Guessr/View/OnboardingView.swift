@@ -133,29 +133,31 @@ struct OnboardingView: View {
 
     @ViewBuilder
     private func iconBadge(for page: OnboardingPage) -> some View {
-        ZStack {
-            Circle()
-                .fill(Color.white)
-                .frame(width: 160, height: 160)
-                .shadow(color: .black.opacity(0.25), radius: 18, y: 8)
-
-            Circle()
-                .stroke(themeManager.palette.accent, lineWidth: 4)
-                .frame(width: 160, height: 160)
-
+        Group {
             if page.isAssetImage {
                 Image(page.icon)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 130, height: 130)
-                    .accessibilityHidden(true)
+                    .padding(18)
             } else {
                 Image(systemName: page.icon)
-                    .font(.system(size: 72, weight: .bold))
+                    .resizable()
+                    .scaledToFit()
                     .foregroundColor(themeManager.palette.accent)
-                    .accessibilityHidden(true)
+                    .padding(36)
             }
         }
+        .frame(width: 180, height: 180)
+        .background(
+            Circle()
+                .fill(Color.white)
+                .shadow(color: .black.opacity(0.3), radius: 20, y: 10)
+        )
+        .overlay(
+            Circle()
+                .stroke(themeManager.palette.accent, lineWidth: 4)
+        )
+        .accessibilityHidden(true)
     }
 
     private func finish() {
