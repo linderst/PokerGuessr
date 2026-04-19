@@ -109,7 +109,13 @@ struct GameView: View {
             Text("Dein aktueller Fortschritt in dieser Runde geht verloren.")
         }
         .alert("Fehler", isPresented: $vm.showError) {
-            Button("OK", role: .cancel) { dismiss() }
+            Button("Erneut versuchen") {
+                Task {
+                    await vm.loadQuestions()
+                    vm.loadFirstQuestion()
+                }
+            }
+            Button("Abbrechen", role: .cancel) { dismiss() }
         } message: {
             Text(vm.errorMessage ?? "Ein unbekannter Fehler ist aufgetreten.")
         }
@@ -126,6 +132,8 @@ struct GameView: View {
                     .background(themeManager.palette.cardBackground.opacity(0.4))
                     .clipShape(Circle())
             }
+            .accessibilityLabel("Zurück")
+            .accessibilityHint("Beendet das aktuelle Spiel und kehrt zum Menü zurück")
             
             Text(category)
                 .font(.subheadline)
@@ -235,7 +243,11 @@ struct GameView: View {
             HStack(spacing: 12) {
                 TextField("Deine Zahl...", text: Binding(
                     get: { vm.currentGuesses[currentPlayer.id, default: ""] },
-                    set: { vm.currentGuesses[currentPlayer.id] = $0 }
+                    set: { newValue in
+                        let allowed = "0123456789.,"
+                        let filtered = newValue.filter { allowed.contains($0) }
+                        vm.currentGuesses[currentPlayer.id] = filtered
+                    }
                 ))
                 .focused($isInputFocused)
                 .keyboardType(.decimalPad)
@@ -248,6 +260,7 @@ struct GameView: View {
                         .stroke(themeManager.palette.border, lineWidth: 1)
                 )
                 .font(.title2)
+                .accessibilityLabel("Tipp eingeben für \(currentPlayer.name)")
                 
                 if let dimension = vm.currentQuestion?.dimension, dimension != .none {
                     Picker("Einheit", selection: Binding(
@@ -276,18 +289,15 @@ struct GameView: View {
                 }
             }
             
-            if vm.containsInvalidCharacters {
-                Text("Nur Zahlen erlaubt")
+            if vm.isPrimaryDisabled,
+               let current = vm.currentGuesses[currentPlayer.id],
+               !current.isEmpty,
+               Double(current.replacingOccurrences(of: ",", with: ".")) == nil {
+                Text("Bitte gib eine gültige Zahl ein")
                     .font(.caption)
                     .foregroundColor(Color.red)
                     .padding(.top, 4)
-            } else if vm.isPrimaryDisabled {
-                if !(vm.currentGuesses[currentPlayer.id]?.isEmpty ?? true) {
-                    Text("Bitte gib eine gültige Zahl ein")
-                        .font(.caption)
-                        .foregroundColor(Color.red)
-                        .padding(.top, 4)
-                }
+                    .accessibilityLabel("Ungültige Zahl")
             }
         }
         .padding(20)

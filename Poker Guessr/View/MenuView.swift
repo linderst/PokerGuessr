@@ -18,7 +18,6 @@ struct MenuView: View {
     @AppStorage("selectedModePersistent") private var selectedModePersistent: Bool = true
     
     // Settings
-    @AppStorage("volume") private var volume: Double = 0.8
     @AppStorage("unlimitedRounds") private var unlimitedRounds: Bool = false
     @AppStorage("roundCount") private var roundCount: Int = 8
     @AppStorage("hapticsEnabled") private var hapticsEnabled: Bool = true
@@ -61,18 +60,20 @@ struct MenuView: View {
                             HStack {
                                 Text("Kategorie")
                                     .foregroundColor(themeManager.palette.cardTextPrimary)
-                                
+
                                 Spacer()
-                                
+
                                 Text(selectedCategory)
                                     .foregroundColor(themeManager.palette.cardTextSecondary)
-                                
+
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(themeManager.palette.cardTextSecondary)
                             }
                         }
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel("Kategorie: \(selectedCategory)")
+                    .accessibilityHint("Tippe, um die Kategorie zu ändern")
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                     
@@ -108,6 +109,8 @@ struct MenuView: View {
                             .font(.title3)
                             .foregroundColor(themeManager.palette.screenTextPrimary)
                     }
+                    .accessibilityLabel("Einstellungen")
+                    .accessibilityHint("Öffnet die Einstellungen")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -118,6 +121,8 @@ struct MenuView: View {
                             .font(.title3)
                             .foregroundColor(themeManager.palette.screenTextPrimary)
                     }
+                    .accessibilityLabel("Design")
+                    .accessibilityHint("Öffnet die Designauswahl")
                 }
             }
             .navigationDestination(isPresented: $startGame) {
@@ -142,7 +147,6 @@ struct MenuView: View {
             .navigationDestination(isPresented: $showSettings) {
                 SettingsView(
                     selectedModePersistent: $selectedModePersistent,
-                    volume: $volume,
                     unlimitedRounds: $unlimitedRounds,
                     roundCount: $roundCount,
                     hapticsEnabled: $hapticsEnabled,
@@ -192,6 +196,10 @@ struct MenuView: View {
                             radius: 14, y: 7)
             }
             .disabled(isMultiplayerMode && players.count < 2)
+            .accessibilityLabel("Spiel starten")
+            .accessibilityHint(isMultiplayerMode && players.count < 2
+                               ? "Füge mindestens zwei Spieler hinzu, um zu starten"
+                               : "Startet eine neue Runde")
         }
         .padding(.horizontal)
         .padding(.bottom, 50)

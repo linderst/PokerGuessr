@@ -6,71 +6,21 @@ struct SettingsView: View {
     @EnvironmentObject var hapticsManager: HapticsManager   // ← GLOBALER HAPTIK-MANAGER
     
     @Binding var selectedModePersistent: Bool
-    @Binding var volume: Double
     @Binding var unlimitedRounds: Bool
     @Binding var roundCount: Int
     @Binding var hapticsEnabled: Bool
     @Binding var trackOverallScore: Bool
     @Binding var tipsCount: Int
     @Binding var separateRanking: Bool
-    
-    @State private var lastVolume: Double = 0.8
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
                 RootBackground()
-                
+
                 ScrollView {
                     VStack(alignment: .leading, spacing: 28) {
-                        
-                        // MARK: - Lautstärke
-                        settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Lautstärke")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
 
-                                HStack {
-                                    Slider(value: $volume, in: 0...1)
-                                        .tint(themeManager.palette.accent)
-
-                                    Button {
-                                        if volume == 0 {
-                                            // Restore previous volume
-                                            volume = lastVolume
-                                            hapticsManager.light()
-                                        } else {
-                                            lastVolume = volume
-                                            volume = 0
-                                            hapticsManager.light()
-                                        }
-                                    } label: {
-                                        HStack(spacing: 6) {
-                                            Image(systemName: volume == 0 ? "speaker.slash.fill" : "speaker.wave.2.fill")
-                                                .font(.system(size: 16, weight: .bold))
-                                                .frame(width: 20, height: 20)
-                                        }
-                                        .foregroundColor(themeManager.palette.cardTextPrimary)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(themeManager.palette.cardBackground.opacity(0.9))
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(themeManager.palette.accent, lineWidth: 1.2)
-                                        )
-                                    }
-                                    .buttonStyle(.plain)
-                                    .accessibilityLabel(volume == 0 ? "Stumm aus" : "Stummschalten")
-                                    .accessibilityHint("Tippe, um die Lautstärke zu stummschalten oder wiederherzustellen")
-                                    .shadow(color: themeManager.palette.border.opacity(0.4), radius: 4, y: 2)
-                                }
-                            }
-                        }
-                        
                         // MARK: - Haptik
                         settingsCard {
                             VStack(alignment: .leading, spacing: 12) {
@@ -180,6 +130,26 @@ struct SettingsView: View {
                                 .accessibilityHint("Sammelt die Punkte über alle gespielten Runden")
                             }
                         }
+
+                        // MARK: - Info
+                        NavigationLink {
+                            AboutView()
+                                .environmentObject(themeManager)
+                                .environmentObject(hapticsManager)
+                        } label: {
+                            settingsCard {
+                                HStack {
+                                    Image(systemName: "info.circle.fill")
+                                        .foregroundColor(themeManager.palette.accent)
+                                    Text("Info & Rechtliches")
+                                        .foregroundColor(themeManager.palette.cardTextPrimary)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(themeManager.palette.cardTextSecondary)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
                     }
                     .padding()
                 }

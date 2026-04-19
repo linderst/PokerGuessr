@@ -37,12 +37,16 @@ struct PlayersSection: View {
             .padding(.horizontal)
 
             HStack {
-                TextField("Spielername...", text: $newPlayerName)
-                    .textFieldStyle(.plain)
-                    .padding(12)
-                    .background(themeManager.palette.cardBackground.opacity(0.8))
-                    .cornerRadius(12)
-                    .foregroundColor(themeManager.palette.cardTextPrimary)
+                ThemedTextField(
+                    text: $newPlayerName,
+                    placeholder: "Spielername...",
+                    textColor: UIColor(themeManager.palette.cardTextPrimary),
+                    placeholderColor: UIColor(themeManager.palette.cardTextSecondary),
+                    cursorColor: UIColor(themeManager.palette.accent)
+                )
+                .padding(12)
+                .background(themeManager.palette.cardBackground.opacity(0.8))
+                .cornerRadius(12)
 
                 Button {
                     let trimmed = newPlayerName.trimmingCharacters(in: .whitespaces)
