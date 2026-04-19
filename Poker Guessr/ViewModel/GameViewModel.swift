@@ -234,14 +234,6 @@ class GameViewModel: ObservableObject {
         return guess.trimmingCharacters(in: .whitespaces).isEmpty || Double(normalized) == nil
     }
     
-    var containsInvalidCharacters: Bool {
-        guard quizState == .guessing else { return false }
-        let currentPlayer = players[currentPlayerGuessIndex]
-        guard let guess = currentGuesses[currentPlayer.id] else { return false }
-        let allowedChars = "0123456789.,- "
-        return guess.contains(where: { !allowedChars.contains($0) })
-    }
-    
     var canStepBack: Bool {
         quizState != .question && !(quizState == .guessing && currentPlayerGuessIndex == 0)
     }
