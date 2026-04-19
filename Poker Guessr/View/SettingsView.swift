@@ -13,6 +13,8 @@ struct SettingsView: View {
     @Binding var tipsCount: Int
     @Binding var separateRanking: Bool
 
+    @AppStorage("isMultiplayerMode") private var isMultiplayerMode: Bool = true
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -116,18 +118,30 @@ struct SettingsView: View {
                         
                         // MARK: - Punkte
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text("Punkte")
                                     .font(.headline)
                                     .foregroundColor(themeManager.palette.cardTextPrimary)
 
                                 Toggle(isOn: $trackOverallScore) {
                                     Text("Gesamtsieger ermitteln")
-                                        .foregroundColor(themeManager.palette.cardTextPrimary)
+                                        .foregroundColor(isMultiplayerMode
+                                                         ? themeManager.palette.cardTextPrimary
+                                                         : themeManager.palette.cardTextSecondary)
                                 }
                                 .tint(themeManager.palette.accent)
+                                .disabled(!isMultiplayerMode)
                                 .accessibilityLabel("Gesamtsieger ermitteln")
-                                .accessibilityHint("Sammelt die Punkte über alle gespielten Runden")
+                                .accessibilityHint(isMultiplayerMode
+                                                   ? "Sammelt die Punkte über alle gespielten Runden"
+                                                   : "Nur im Multiplayer-Modus verfügbar")
+
+                                if !isMultiplayerMode {
+                                    Text("Nur im Multiplayer-Modus verfügbar")
+                                        .font(.caption)
+                                        .foregroundColor(themeManager.palette.cardTextSecondary)
+                                        .padding(.top, 2)
+                                }
                             }
                         }
 
