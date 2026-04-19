@@ -3,6 +3,7 @@ import SwiftUI
 struct OnboardingPage: Identifiable {
     let id = UUID()
     let icon: String
+    let isAssetImage: Bool
     let title: String
     let description: String
 }
@@ -16,22 +17,26 @@ struct OnboardingView: View {
 
     private let pages: [OnboardingPage] = [
         OnboardingPage(
-            icon: "questionmark.circle.fill",
+            icon: "pokerchip_neutral",
+            isAssetImage: true,
             title: "Willkommen bei Poker Guessr",
             description: "Das Schätzspiel mit Pokerchip-Charme. Allein oder mit Freunden – tippe Zahlen, gewinne Punkte."
         ),
         OnboardingPage(
             icon: "lightbulb.fill",
+            isAssetImage: false,
             title: "Schätzen & Tipps nutzen",
             description: "Du bekommst eine Frage mit einer Zahl als Antwort. Gib deinen Tipp ab und nutze bis zu drei Hinweise, um näher an die Lösung zu kommen."
         ),
         OnboardingPage(
             icon: "trophy.fill",
+            isAssetImage: false,
             title: "Punkte sammeln",
             description: "Im Multiplayer-Modus gibt es für die besten Schätzungen 3, 2 und 1 Punkt. Wer am Ende am meisten Punkte hat, gewinnt."
         ),
         OnboardingPage(
             icon: "gearshape.2.fill",
+            isAssetImage: false,
             title: "Alles anpassbar",
             description: "Wähle Kategorie, Schwierigkeitsgrad, Rundenzahl und Design ganz nach deinem Geschmack. Jetzt geht's los!"
         )
@@ -111,10 +116,7 @@ struct OnboardingView: View {
     @ViewBuilder
     private func pageView(_ page: OnboardingPage) -> some View {
         VStack(spacing: 24) {
-            Image(systemName: page.icon)
-                .font(.system(size: 88, weight: .bold))
-                .foregroundColor(themeManager.palette.accent)
-                .shadow(color: themeManager.palette.accent.opacity(0.5), radius: 20)
+            iconBadge(for: page)
 
             Text(page.title)
                 .font(.title.bold())
@@ -127,6 +129,35 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
         }
+    }
+
+    @ViewBuilder
+    private func iconBadge(for page: OnboardingPage) -> some View {
+        Group {
+            if page.isAssetImage {
+                Image(page.icon)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(18)
+            } else {
+                Image(systemName: page.icon)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(themeManager.palette.accent)
+                    .padding(36)
+            }
+        }
+        .frame(width: 180, height: 180)
+        .background(
+            Circle()
+                .fill(Color.white)
+                .shadow(color: .black.opacity(0.3), radius: 20, y: 10)
+        )
+        .overlay(
+            Circle()
+                .stroke(themeManager.palette.accent, lineWidth: 4)
+        )
+        .accessibilityHidden(true)
     }
 
     private func finish() {
