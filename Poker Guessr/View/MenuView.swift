@@ -36,11 +36,9 @@ struct MenuView: View {
                     AnimatedPokerTitle()
                         .padding(.top, 60)
 
-                    // MARK: - Pokerchip Icon (nur im Singleplayer-Modus groß)
-                    if !isMultiplayerMode {
-                        PokerChipView()
-                            .padding(.top, 20)
-                    }
+                    // MARK: - Pokerchip Icon
+                    PokerChipView()
+                        .padding(.top, 20)
 
                     // MARK: - Spieler (oberhalb der fixen Controls)
                     if isMultiplayerMode {
@@ -48,7 +46,6 @@ struct MenuView: View {
                             players: $players,
                             newPlayerName: $newPlayerName
                         )
-                        .padding(.top, 12)
                     }
 
                     Spacer()

@@ -36,7 +36,7 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            HStack {
+            HStack(spacing: 10) {
                 ThemedTextField(
                     text: $newPlayerName,
                     placeholder: "Spielername...",
@@ -44,7 +44,9 @@ struct PlayersSection: View {
                     placeholderColor: UIColor(themeManager.palette.cardTextSecondary),
                     cursorColor: UIColor(themeManager.palette.accent)
                 )
-                .padding(12)
+                .frame(height: 24)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
                 .background(themeManager.palette.cardBackground.opacity(0.8))
                 .cornerRadius(12)
 
@@ -57,7 +59,8 @@ struct PlayersSection: View {
                     }
                 } label: {
                     Image(systemName: "plus")
-                        .padding(12)
+                        .font(.headline)
+                        .frame(width: 44, height: 44)
                         .background(themeManager.palette.accent)
                         .foregroundColor(.white)
                         .clipShape(Circle())
