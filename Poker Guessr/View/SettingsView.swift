@@ -136,7 +136,7 @@ struct SettingsView: View {
                                 counterRow(
                                     label: "Tipps pro Frage: \(tipsCount)",
                                     value: $tipsCount,
-                                    range: 0...3,
+                                    range: 1...3,
                                     accessibilityLabel: "Tipps pro Frage"
                                 )
                                 
@@ -144,7 +144,7 @@ struct SettingsView: View {
                                 
                                 // Getrennte Rangliste
                                 Toggle(isOn: $separateRanking) {
-                                    Text("Lösung und Rangliste trennen")
+                                    Text("Lösung als Tipp verwenden")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                 }
                                 .tint(themeManager.palette.accent)

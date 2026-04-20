@@ -23,8 +23,8 @@ struct MenuView: View {
     @AppStorage("hapticsEnabled") private var hapticsEnabled: Bool = true
     @AppStorage("trackOverallScore") private var trackOverallScore: Bool = false
     @AppStorage("isMultiplayerMode") private var isMultiplayerMode: Bool = true
-    @AppStorage("tipsCount") private var tipsCount: Int = 3
-    @AppStorage("separateRanking") private var separateRanking: Bool = false
+    @AppStorage("tipsCount") private var tipsCount: Int = 2
+    @AppStorage("separateRanking") private var separateRanking: Bool = true
     
     var body: some View {
         NavigationStack {
