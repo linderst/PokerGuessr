@@ -14,6 +14,7 @@ struct GameView: View {
     
     @EnvironmentObject var themeManager: ThemeManager
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @EnvironmentObject var haptics: HapticsManager
     
     @State private var showExitAlert = false
@@ -201,6 +202,10 @@ struct GameView: View {
     }
 
     private func runQuestionAnimation() {
+        if reduceMotion {
+            animateQuestion = true
+            return
+        }
         animateQuestion = false
         withAnimation(.easeOut(duration: 0.35)) {
             animateQuestion = true

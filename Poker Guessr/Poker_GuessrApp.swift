@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseFirestore
 
 @main
 struct PokerGuessrApp: App {
@@ -19,6 +20,14 @@ struct PokerGuessrApp: App {
 
     init() {
         FirebaseApp.configure()
+
+        // Firestore Offline-Cache aktivieren (100 MB)
+        // Fragen bleiben nach erstem Laden offline verfügbar.
+        let settings = Firestore.firestore().settings
+        settings.cacheSettings = PersistentCacheSettings(
+            sizeBytes: NSNumber(value: 100 * 1024 * 1024)
+        )
+        Firestore.firestore().settings = settings
     }
 
     var body: some Scene {

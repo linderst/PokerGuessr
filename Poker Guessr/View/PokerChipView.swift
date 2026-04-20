@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct PokerChipView: View {
-    
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     @State private var rotate: Double = 0
     @State private var scale: CGFloat = 1.0
-    
+
     var body: some View {
         Image("pokerchip_neutral")
             .resizable()
@@ -22,6 +24,7 @@ struct PokerChipView: View {
             .scaleEffect(scale)
             .shadow(color: .black.opacity(0.3), radius: 12, y: 6)
             .onTapGesture {
+                guard !reduceMotion else { return }
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
                     scale = 0.85
                 }
@@ -31,6 +34,7 @@ struct PokerChipView: View {
                 }
             }
             .onAppear {
+                guard !reduceMotion else { return }
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                     scale = 1.05
                 }

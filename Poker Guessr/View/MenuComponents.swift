@@ -3,17 +3,19 @@ import SwiftUI
 // MARK: - Animierter Poker-Titel
 struct AnimatedPokerTitle: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var pulse: CGFloat = 1.0
-    
+
     var body: some View {
         let accent = themeManager.palette.accent
-        
+
         Text("Poker Guessr")
             .font(.system(size: 44, weight: .heavy, design: .rounded))
             .foregroundColor(themeManager.palette.screenTextPrimary)
             .neonGlow(color: accent)
             .scaleEffect(pulse)
             .onAppear {
+                guard !reduceMotion else { return }
                 withAnimation(
                     .easeInOut(duration: 1.8).repeatForever(autoreverses: true)
                 ) { pulse = 1.07 }
@@ -46,8 +48,9 @@ struct SublineInfo: View {
 
 // MARK: - Rotierender Pokerchip-Icon
 struct AnimatedPokerChipIcon: View {
-    
+
     @EnvironmentObject var themeManager: ThemeManager
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var rotation: Double = 0
     
     var body: some View {
@@ -80,6 +83,7 @@ struct AnimatedPokerChipIcon: View {
         }
         .rotationEffect(.degrees(rotation))
         .onAppear {
+            guard !reduceMotion else { return }
             withAnimation(
                 .linear(duration: 4.0).repeatForever(autoreverses: false)
             ) {
