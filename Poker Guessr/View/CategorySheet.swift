@@ -29,7 +29,7 @@ struct CategorySheet: View {
                                 : .black
                             )
 
-                        TextField("Kategorie suchen…", text: $searchText)
+                        TextField("Kategorie suchen", text: $searchText)
                             .foregroundColor(themeManager.palette.cardTextPrimary)
                             .environment(\.colorScheme, themeManager.currentTheme == .midnightPurple ? .dark : .light)
                     }

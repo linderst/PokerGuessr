@@ -92,7 +92,7 @@ struct DesignSettingsView: View {
         switch theme {
         case .oceanBlue:      return "Klar, frisch, fokussiert."
         case .sunsetBurst:    return "Warm, energiegeladen."
-        case .midnightPurple: return "Dunkel, ruhig, deep focus."
+        case .midnightPurple: return "Dunkel, ruhig, konzentriert."
         case .forestGreen:    return "Natürlich, entspannt."
         }
     }

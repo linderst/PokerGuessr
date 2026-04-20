@@ -48,7 +48,7 @@ struct PlayersSection: View {
             HStack(spacing: 10) {
                 ThemedTextField(
                     text: $newPlayerName,
-                    placeholder: "Spielername...",
+                    placeholder: "Spielername",
                     textColor: UIColor(themeManager.palette.cardTextPrimary),
                     placeholderColor: UIColor(themeManager.palette.cardTextSecondary),
                     cursorColor: UIColor(themeManager.palette.accent)
@@ -74,6 +74,8 @@ struct PlayersSection: View {
                         .foregroundColor(.white)
                         .clipShape(Circle())
                 }
+                .accessibilityLabel("Spieler hinzufügen")
+                .accessibilityHint("Fügt den eingegebenen Namen zur Spielerliste hinzu")
             }
             .padding(.horizontal)
 
@@ -141,6 +143,7 @@ struct PlayersSection: View {
                             )
                     }
                     .disabled(index == 0)
+                    .accessibilityLabel("\(player.name) nach oben verschieben")
 
                     Button {
                         move(from: index, by: 1)
@@ -157,6 +160,7 @@ struct PlayersSection: View {
                             )
                     }
                     .disabled(index == players.count - 1)
+                    .accessibilityLabel("\(player.name) nach unten verschieben")
 
                     Button {
                         withAnimation {
@@ -172,6 +176,7 @@ struct PlayersSection: View {
                             .background(Color.red.opacity(0.85))
                             .clipShape(Circle())
                     }
+                    .accessibilityLabel("\(player.name) entfernen")
                 }
                 .transition(.opacity)
             }

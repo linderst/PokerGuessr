@@ -31,7 +31,7 @@ struct SublineInfo: View {
                 .background(themeManager.palette.accent.opacity(0.6))
                 .shadow(color: themeManager.palette.accent.opacity(0.5), radius: 8)
             
-            Text("Teste dein Wissen mit Tipps & Poker-Mindgames")
+            Text("Teste dein Wissen – schätzen, bluffen, gewinnen.")
                 .font(.subheadline)
                 .foregroundColor(themeManager.palette.screenTextSecondary)
                 .multilineTextAlignment(.center)

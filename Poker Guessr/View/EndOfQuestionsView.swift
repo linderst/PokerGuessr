@@ -51,12 +51,14 @@ struct EndOfQuestionsView: View {
                     .foregroundColor(themeManager.palette.accent)
                     .shadow(color: themeManager.palette.accent.opacity(0.4), radius: 12, y: 4)
                     .padding(.bottom, 4)
+                    .accessibilityHidden(true)
 
                 Text("Alle Fragen gespielt!")
                     .font(.title.bold())
                     .foregroundColor(themeManager.palette.cardTextPrimary)
+                    .accessibilityAddTraits(.isHeader)
 
-                Text("Es sind aktuell keine weiteren Fragen in dieser Kategorie verfügbar.\nNeue Inhalte folgen bald!")
+                Text("Keine weiteren Fragen in dieser Kategorie.\nNeue Inhalte folgen bald.")
                     .font(.body)
                     .foregroundColor(themeManager.palette.cardTextSecondary)
                     .multilineTextAlignment(.center)

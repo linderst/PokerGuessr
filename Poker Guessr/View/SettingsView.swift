@@ -71,36 +71,37 @@ struct SettingsView: View {
                             }
                         }
 
-                        // MARK: - Tipps Einstellungen
-                        sectionHeader("Tipps Einstellungen")
+                        // MARK: - Hinweise
+                        sectionHeader("Hinweise")
                         settingsCard {
                             VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $selectedModePersistent) {
-                                    Text("Tipps merken")
+                                    Text("Hinweise merken")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                 }
                                 .tint(themeManager.palette.accent)
-                                .accessibilityLabel("Tipps merken")
-                                .accessibilityHint("Merkt sich deine Tipp-Einstellungen für kommende Spiele")
+                                .accessibilityLabel("Hinweise merken")
+                                .accessibilityHint("Übernimmt deine Einstellungen in kommende Spiele")
 
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
 
                                 HStack {
-                                    Text("Tipps pro Frage")
+                                    Text("Hinweise pro Frage")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                     Spacer()
                                     themedSegments(values: [1, 2, 3], selection: $tipsCount)
-                                        .accessibilityLabel("Tipps pro Frage")
+                                        .accessibilityLabel("Hinweise pro Frage")
                                         .accessibilityValue("\(tipsCount)")
                                 }
 
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
 
                                 Toggle(isOn: $separateRanking) {
-                                    Text("Lösung als Tipp verwenden")
+                                    Text("Lösung als Hinweis anzeigen")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                 }
                                 .tint(themeManager.palette.accent)
+                                .accessibilityHint("Nutzt die Lösung als letzten Hinweis vor der Auswertung")
                             }
                         }
 
@@ -114,7 +115,7 @@ struct SettingsView: View {
                                 }
                                 .tint(themeManager.palette.accent)
                                 .accessibilityLabel("Unbegrenzte Runden")
-                                .accessibilityHint("Wenn aktiviert, wird ohne Rundenlimit gespielt")
+                                .accessibilityHint("Spielt ohne Rundenlimit")
 
                                 if !unlimitedRounds {
                                     counterRow(

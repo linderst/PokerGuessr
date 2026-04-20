@@ -84,7 +84,7 @@ struct MenuView: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel("Kategorie: \(selectedCategory)")
-                        .accessibilityHint("Tippe, um die Kategorie zu ändern")
+                        .accessibilityHint("Ändert die Kategorie")
                         .padding(.horizontal)
                         .padding(.bottom, 8)
 
@@ -197,7 +197,7 @@ struct MenuView: View {
             .disabled(isMultiplayerMode && players.count < 2)
             .accessibilityLabel("Spiel starten")
             .accessibilityHint(isMultiplayerMode && players.count < 2
-                               ? "Füge mindestens zwei Spieler hinzu, um zu starten"
+                               ? "Mindestens 2 Spieler nötig, um zu starten"
                                : "Startet eine neue Runde")
             .overlay {
                 if isMultiplayerMode && players.count < 2 {
@@ -207,7 +207,7 @@ struct MenuView: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                Text("Bitte füge mindestens 2 Spieler hinzu")
+                Text("Füge mindestens 2 Spieler hinzu")
                     .font(.caption.weight(warningHighlight ? .bold : .regular))
                     .foregroundColor(warningHighlight ? .red : themeManager.palette.cardTextSecondary)
                     .opacity(isMultiplayerMode && players.count < 2 ? 1 : 0)

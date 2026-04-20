@@ -102,11 +102,11 @@ struct GameView: View {
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
-        .alert("Spiel wirklich beenden?", isPresented: $showExitAlert) {
-            Button("Ja", role: .destructive) { dismiss() }
-            Button("Nein", role: .cancel) { }
+        .alert("Spiel beenden?", isPresented: $showExitAlert) {
+            Button("Beenden", role: .destructive) { dismiss() }
+            Button("Weiterspielen", role: .cancel) { }
         } message: {
-            Text("Dein aktueller Fortschritt in dieser Runde geht verloren.")
+            Text("Dein Fortschritt in dieser Runde geht verloren.")
         }
         .alert("Fehler", isPresented: $vm.showError) {
             Button("Erneut versuchen") {
@@ -117,7 +117,7 @@ struct GameView: View {
             }
             Button("Abbrechen", role: .cancel) { dismiss() }
         } message: {
-            Text(vm.errorMessage ?? "Ein unbekannter Fehler ist aufgetreten.")
+            Text(vm.errorMessage ?? "Etwas ist schiefgelaufen. Versuch es noch einmal.")
         }
     }
     
@@ -133,7 +133,7 @@ struct GameView: View {
                     .clipShape(Circle())
             }
             .accessibilityLabel("Zurück")
-            .accessibilityHint("Beendet das aktuelle Spiel und kehrt zum Menü zurück")
+            .accessibilityHint("Beendet das Spiel und kehrt zum Menü zurück")
             
             Text(category)
                 .font(.subheadline)
@@ -168,6 +168,8 @@ struct GameView: View {
                         .background(themeManager.palette.accent)
                         .clipShape(Capsule())
                 }
+                .accessibilityLabel("Spiel beenden")
+                .accessibilityHint("Beendet die Runde und zeigt die Endauswertung")
             }
         }
         .padding(.horizontal)
@@ -241,7 +243,7 @@ struct GameView: View {
                 .foregroundColor(themeManager.palette.cardTextPrimary)
             
             HStack(spacing: 12) {
-                TextField("Deine Zahl...", text: Binding(
+                TextField("Deine Schätzung", text: Binding(
                     get: { vm.currentGuesses[currentPlayer.id, default: ""] },
                     set: { newValue in
                         let allowed = "0123456789.,"
@@ -293,7 +295,7 @@ struct GameView: View {
                let current = vm.currentGuesses[currentPlayer.id],
                !current.isEmpty,
                Double(current.replacingOccurrences(of: ",", with: ".")) == nil {
-                Text("Bitte gib eine gültige Zahl ein")
+                Text("Gib eine gültige Zahl ein")
                     .font(.caption)
                     .foregroundColor(Color.red)
                     .padding(.top, 4)
@@ -314,7 +316,7 @@ struct GameView: View {
             
             if vm.quizState == .question {
                 
-                Text("Tipps werden hier eingeblendet.")
+                Text("Hinweise erscheinen hier.")
                     .font(.subheadline)
                     .foregroundColor(themeManager.palette.cardTextSecondary)
                 
@@ -443,7 +445,7 @@ struct GameView: View {
                     radius: 12, y: 6)
             
             if vm.canStepBack {
-                Button("Einen Schritt zurück") {
+                Button("Schritt zurück") {
                     haptics.light()
                     SoundManager.shared.play(.tap)
                     vm.stepBack()

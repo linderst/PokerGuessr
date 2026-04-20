@@ -25,14 +25,14 @@ struct OnboardingView: View {
         OnboardingPage(
             icon: "lightbulb.fill",
             isAssetImage: false,
-            title: "Schätzen & Tipps nutzen",
-            description: "Du bekommst eine Frage mit einer Zahl als Antwort. Gib deinen Tipp ab und nutze bis zu drei Hinweise, um näher an die Lösung zu kommen."
+            title: "Schätzen & Hinweise nutzen",
+            description: "Du bekommst eine Frage mit einer Zahl als Antwort. Gib deinen Tipp ab und nutze bis zu drei Hinweise, um der Lösung näherzukommen."
         ),
         OnboardingPage(
             icon: "trophy.fill",
             isAssetImage: false,
             title: "Punkte sammeln",
-            description: "Im Multiplayer-Modus gibt es für die besten Schätzungen 3, 2 und 1 Punkt. Wer am Ende am meisten Punkte hat, gewinnt."
+            description: "Im Multiplayer-Modus gibt es für die besten Schätzungen 3, 2 und 1 Punkt. Wer am Ende die meisten Punkte hat, gewinnt."
         ),
         OnboardingPage(
             icon: "gearshape.2.fill",
@@ -122,6 +122,7 @@ struct OnboardingView: View {
                 .font(.title.bold())
                 .foregroundColor(themeManager.palette.screenTextPrimary)
                 .multilineTextAlignment(.center)
+                .accessibilityAddTraits(.isHeader)
 
             Text(page.description)
                 .font(.body)
@@ -129,6 +130,7 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
         }
+        .accessibilityElement(children: .combine)
     }
 
     @ViewBuilder
