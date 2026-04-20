@@ -68,38 +68,38 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            if !players.isEmpty {
-                List {
-                    ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
-                        HStack {
-                            Text("\(index + 1).")
-                                .font(.subheadline.bold())
-                                .foregroundColor(themeManager.palette.cardTextSecondary)
+            List {
+                ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
+                    HStack {
+                        Text("\(index + 1).")
+                            .font(.subheadline.bold())
+                            .foregroundColor(themeManager.palette.cardTextSecondary)
 
-                            Text(player.name)
-                                .foregroundColor(themeManager.palette.cardTextPrimary)
-                        }
-                        .listRowBackground(themeManager.palette.cardBackground)
+                        Text(player.name)
+                            .foregroundColor(themeManager.palette.cardTextPrimary)
                     }
-                    .if(isEditing) { view in
-                        view
-                            .onMove { from, to in
-                                players.move(fromOffsets: from, toOffset: to)
-                                hapticsManager.light()
-                            }
-                            .onDelete { indexSet in
-                                players.remove(atOffsets: indexSet)
-                                hapticsManager.light()
-                            }
-                    }
+                    .listRowBackground(themeManager.palette.cardBackground)
                 }
-                .environment(\.editMode, .constant(isEditing ? .active : .inactive))
-                .listStyle(.plain)
-                .frame(height: CGFloat(min(players.count, 3)) * 48)
-                .background(themeManager.palette.cardBackground.opacity(0.2))
-                .cornerRadius(12)
-                .padding(.horizontal)
+                .if(isEditing) { view in
+                    view
+                        .onMove { from, to in
+                            players.move(fromOffsets: from, toOffset: to)
+                            hapticsManager.light()
+                        }
+                        .onDelete { indexSet in
+                            players.remove(atOffsets: indexSet)
+                            hapticsManager.light()
+                        }
+                }
             }
+            .environment(\.editMode, .constant(isEditing ? .active : .inactive))
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .frame(height: 3 * 48)
+            .background(themeManager.palette.cardBackground.opacity(0.2))
+            .cornerRadius(12)
+            .padding(.horizontal)
+            .opacity(players.isEmpty ? 0 : 1)
         }
     }
 }
