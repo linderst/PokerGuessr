@@ -100,14 +100,12 @@ struct SettingsView: View {
                                 .accessibilityHint("Wenn aktiviert, wird ohne Rundenlimit gespielt")
 
                                 if !unlimitedRounds {
-                                    Stepper(value: $roundCount, in: 1...20) {
-                                        Text("Runden: \(roundCount)")
-                                            .foregroundColor(themeManager.palette.accent)
-                                    }
-                                    .colorScheme(themeManager.palette.cardBackground.isDark ? .dark : .light)
-                                    .accessibilityLabel("Rundenanzahl")
-                                    .accessibilityValue("\(roundCount)")
-                                    .accessibilityHint("Erhöhe oder verringere die Anzahl der Runden")
+                                    counterRow(
+                                        label: "Runden: \(roundCount)",
+                                        value: $roundCount,
+                                        range: 1...20,
+                                        accessibilityLabel: "Rundenanzahl"
+                                    )
                                 }
                             }
                         }
@@ -135,12 +133,12 @@ struct SettingsView: View {
                                     .font(.headline)
                                     .foregroundColor(themeManager.palette.cardTextPrimary)
 
-                                // Tipps pro Frage Stepper
-                                Stepper(value: $tipsCount, in: 0...3) {
-                                    Text("Tipps pro Frage: \(tipsCount)")
-                                        .foregroundColor(themeManager.palette.cardTextPrimary)
-                                }
-                                .colorScheme(themeManager.palette.cardBackground.isDark ? .dark : .light)
+                                counterRow(
+                                    label: "Tipps pro Frage: \(tipsCount)",
+                                    value: $tipsCount,
+                                    range: 0...3,
+                                    accessibilityLabel: "Tipps pro Frage"
+                                )
                                 
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
                                 
@@ -208,6 +206,70 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .foregroundColor(themeManager.palette.screenTextPrimary)
         }
+    }
+
+    // MARK: - Counter Row (sichtbarer Ersatz für Stepper)
+    @ViewBuilder
+    private func counterRow(
+        label: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        accessibilityLabel: String
+    ) -> some View {
+        HStack {
+            Text(label)
+                .foregroundColor(themeManager.palette.accent)
+
+            Spacer()
+
+            HStack(spacing: 0) {
+                Button {
+                    if value.wrappedValue > range.lowerBound {
+                        value.wrappedValue -= 1
+                        hapticsManager.light()
+                    }
+                } label: {
+                    Image(systemName: "minus")
+                        .font(.body.bold())
+                        .frame(width: 44, height: 32)
+                        .foregroundColor(value.wrappedValue > range.lowerBound
+                                         ? themeManager.palette.accent
+                                         : themeManager.palette.cardTextSecondary.opacity(0.4))
+                }
+                .disabled(value.wrappedValue <= range.lowerBound)
+                .accessibilityLabel("\(accessibilityLabel) verringern")
+
+                Divider()
+                    .frame(height: 20)
+                    .background(themeManager.palette.accent.opacity(0.4))
+
+                Button {
+                    if value.wrappedValue < range.upperBound {
+                        value.wrappedValue += 1
+                        hapticsManager.light()
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.body.bold())
+                        .frame(width: 44, height: 32)
+                        .foregroundColor(value.wrappedValue < range.upperBound
+                                         ? themeManager.palette.accent
+                                         : themeManager.palette.cardTextSecondary.opacity(0.4))
+                }
+                .disabled(value.wrappedValue >= range.upperBound)
+                .accessibilityLabel("\(accessibilityLabel) erhöhen")
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(themeManager.palette.accent.opacity(0.15))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(themeManager.palette.accent.opacity(0.5), lineWidth: 1)
+            )
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityValue("\(value.wrappedValue)")
     }
 
     // MARK: - Card Wrapper
