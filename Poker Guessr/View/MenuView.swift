@@ -172,12 +172,11 @@ struct MenuView: View {
     // MARK: - Start Button
     private var startButton: some View {
         VStack(spacing: 8) {
-            if isMultiplayerMode && players.count < 2 {
-                Text("Bitte füge mindestens 2 Spieler hinzu")
-                    .font(.caption)
-                    .foregroundColor(themeManager.palette.cardTextSecondary)
-            }
-            
+            Text("Bitte füge mindestens 2 Spieler hinzu")
+                .font(.caption)
+                .foregroundColor(themeManager.palette.cardTextSecondary)
+                .opacity(isMultiplayerMode && players.count < 2 ? 1 : 0)
+
             Button {
                 hapticsManager.medium()
                 SoundManager.shared.play(.tap)
