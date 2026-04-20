@@ -14,6 +14,7 @@ struct MenuView: View {
     @State private var startGame = false
     @State private var players: [Player] = []
     @State private var newPlayerName: String = ""
+    @State private var warningHighlight: Bool = false
     
     @AppStorage("selectedModePersistent") private var selectedModePersistent: Bool = true
     
@@ -198,17 +199,34 @@ struct MenuView: View {
             .accessibilityHint(isMultiplayerMode && players.count < 2
                                ? "Füge mindestens zwei Spieler hinzu, um zu starten"
                                : "Startet eine neue Runde")
+            .overlay {
+                if isMultiplayerMode && players.count < 2 {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture { triggerWarningHighlight() }
+                }
+            }
             .overlay(alignment: .bottom) {
                 Text("Bitte füge mindestens 2 Spieler hinzu")
-                    .font(.caption)
-                    .foregroundColor(themeManager.palette.cardTextSecondary)
+                    .font(.caption.weight(warningHighlight ? .bold : .regular))
+                    .foregroundColor(warningHighlight ? .red : themeManager.palette.cardTextSecondary)
                     .opacity(isMultiplayerMode && players.count < 2 ? 1 : 0)
+                    .scaleEffect(warningHighlight ? 1.08 : 1.0)
                     .offset(y: 24)
                     .allowsHitTesting(false)
+                    .animation(.spring(response: 0.25, dampingFraction: 0.5), value: warningHighlight)
             }
         }
         .padding(.horizontal)
         .padding(.bottom, 50)
+    }
+
+    private func triggerWarningHighlight() {
+        hapticsManager.light()
+        warningHighlight = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            warningHighlight = false
+        }
     }
 }
 
