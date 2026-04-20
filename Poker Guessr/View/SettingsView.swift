@@ -133,12 +133,20 @@ struct SettingsView: View {
                                     .font(.headline)
                                     .foregroundColor(themeManager.palette.cardTextPrimary)
 
-                                counterRow(
-                                    label: "Tipps pro Frage: \(tipsCount)",
-                                    value: $tipsCount,
-                                    range: 1...3,
-                                    accessibilityLabel: "Tipps pro Frage"
-                                )
+                                HStack {
+                                    Text("Tipps pro Frage")
+                                        .foregroundColor(themeManager.palette.cardTextPrimary)
+                                    Spacer()
+                                    Picker("Tipps pro Frage", selection: $tipsCount) {
+                                        ForEach(1...3, id: \.self) { n in
+                                            Text("\(n)").tag(n)
+                                        }
+                                    }
+                                    .pickerStyle(.segmented)
+                                    .frame(width: 140)
+                                    .accessibilityLabel("Tipps pro Frage")
+                                    .accessibilityValue("\(tipsCount)")
+                                }
                                 
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
                                 
