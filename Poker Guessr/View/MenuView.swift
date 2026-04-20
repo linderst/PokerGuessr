@@ -48,49 +48,52 @@ struct MenuView: View {
                         )
                     }
 
-                    Spacer()
+                    Spacer(minLength: 0)
+                }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    VStack(spacing: 20) {
+                        // MARK: - Spielmodus (Single / Multi)
+                        Picker("Spielmodus", selection: $isMultiplayerMode) {
+                            Text("Nur Fragen").tag(false)
+                            Text("Multiplayer").tag(true)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
 
-                    // MARK: - Spielmodus (Single / Multi)
-                    Picker("Spielmodus", selection: $isMultiplayerMode) {
-                        Text("Nur Fragen").tag(false)
-                        Text("Multiplayer").tag(true)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
+                        // MARK: - Kategorie-Auswahl
+                        Button {
+                            hapticsManager.light()
+                            showCategorySheet = true
+                        } label: {
+                            ThemedCard {
+                                HStack {
+                                    Text("Kategorie")
+                                        .foregroundColor(themeManager.palette.cardTextPrimary)
 
-                    // MARK: - Kategorie-Auswahl
-                    Button {
-                        hapticsManager.light()
-                        showCategorySheet = true
-                    } label: {
-                        ThemedCard {
-                            HStack {
-                                Text("Kategorie")
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
+                                    Spacer()
 
-                                Spacer()
+                                    Text(selectedCategory)
+                                        .foregroundColor(themeManager.palette.cardTextSecondary)
 
-                                Text(selectedCategory)
-                                    .foregroundColor(themeManager.palette.cardTextSecondary)
-
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(themeManager.palette.cardTextSecondary)
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(themeManager.palette.cardTextSecondary)
+                                }
                             }
                         }
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Kategorie: \(selectedCategory)")
-                    .accessibilityHint("Tippe, um die Kategorie zu ändern")
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
-
-                    // MARK: - Schwierigkeitsgrad
-                    DifficultySelector(selectedDifficulty: $selectedDifficulty)
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Kategorie: \(selectedCategory)")
+                        .accessibilityHint("Tippe, um die Kategorie zu ändern")
                         .padding(.horizontal)
+                        .padding(.bottom, 8)
 
-                    // MARK: - Start-Button
-                    startButton
+                        // MARK: - Schwierigkeitsgrad
+                        DifficultySelector(selectedDifficulty: $selectedDifficulty)
+                            .padding(.horizontal)
+
+                        // MARK: - Start-Button
+                        startButton
+                    }
                 }
             }
             .onAppear {

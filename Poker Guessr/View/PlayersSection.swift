@@ -77,53 +77,109 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            // MARK: - Spielerliste (scrollbar ab Spieler 4, mit Reorder im Edit-Modus)
-            List {
-                ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
-                    HStack(spacing: 12) {
-                        ZStack {
-                            Circle()
-                                .fill(themeManager.palette.accent)
-                                .frame(width: 28, height: 28)
-                            Text("\(index + 1)")
-                                .font(.caption.bold())
-                                .foregroundColor(.white)
-                        }
-
-                        Text(player.name)
-                            .font(.subheadline.weight(.medium))
-                            .foregroundColor(themeManager.palette.cardTextPrimary)
-
-                        Spacer()
+            // MARK: - Spielerliste (scrollbar ab Spieler 4, eigene Edit-Buttons)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: rowSpacing) {
+                    ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
+                        playerRow(index: index, player: player)
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .frame(height: rowHeight)
-                    .background(themeManager.palette.cardBackground.opacity(0.85))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .shadow(color: themeManager.palette.border.opacity(0.2), radius: 3, y: 1)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: rowSpacing / 2, leading: 0, bottom: rowSpacing / 2, trailing: 0))
                 }
-                .onMove { from, to in
-                    players.move(fromOffsets: from, toOffset: to)
-                    hapticsManager.light()
-                }
-                .onDelete { indexSet in
-                    players.remove(atOffsets: indexSet)
-                    if players.isEmpty { isEditing = false }
-                    hapticsManager.light()
-                }
+                .padding(.vertical, rowSpacing / 2)
             }
-            .environment(\.editMode, .constant(isEditing ? .active : .inactive))
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .scrollIndicators(.hidden)
             .frame(height: listHeight)
             .padding(.horizontal)
             .opacity(players.isEmpty ? 0 : 1)
+            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: players)
             .animation(.easeInOut(duration: 0.2), value: isEditing)
         }
+    }
+
+    // MARK: - Player Row
+    @ViewBuilder
+    private func playerRow(index: Int, player: Player) -> some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(themeManager.palette.accent)
+                    .frame(width: 28, height: 28)
+                Text("\(index + 1)")
+                    .font(.caption.bold())
+                    .foregroundColor(.white)
+            }
+
+            Text(player.name)
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(themeManager.palette.cardTextPrimary)
+                .lineLimit(1)
+
+            Spacer()
+
+            if isEditing {
+                HStack(spacing: 6) {
+                    Button {
+                        move(from: index, by: -1)
+                    } label: {
+                        Image(systemName: "chevron.up")
+                            .font(.footnote.bold())
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(index == 0
+                                             ? themeManager.palette.cardTextSecondary.opacity(0.4)
+                                             : themeManager.palette.accent)
+                            .background(
+                                Circle()
+                                    .stroke(themeManager.palette.accent.opacity(index == 0 ? 0.2 : 0.6), lineWidth: 1)
+                            )
+                    }
+                    .disabled(index == 0)
+
+                    Button {
+                        move(from: index, by: 1)
+                    } label: {
+                        Image(systemName: "chevron.down")
+                            .font(.footnote.bold())
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(index == players.count - 1
+                                             ? themeManager.palette.cardTextSecondary.opacity(0.4)
+                                             : themeManager.palette.accent)
+                            .background(
+                                Circle()
+                                    .stroke(themeManager.palette.accent.opacity(index == players.count - 1 ? 0.2 : 0.6), lineWidth: 1)
+                            )
+                    }
+                    .disabled(index == players.count - 1)
+
+                    Button {
+                        withAnimation {
+                            players.removeAll { $0.id == player.id }
+                            if players.isEmpty { isEditing = false }
+                        }
+                        hapticsManager.light()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.footnote.bold())
+                            .foregroundColor(.white)
+                            .frame(width: 28, height: 28)
+                            .background(Color.red.opacity(0.85))
+                            .clipShape(Circle())
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .frame(height: rowHeight)
+        .background(themeManager.palette.cardBackground.opacity(0.85))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: themeManager.palette.border.opacity(0.2), radius: 3, y: 1)
+    }
+
+    private func move(from index: Int, by offset: Int) {
+        let newIndex = index + offset
+        guard newIndex >= 0, newIndex < players.count else { return }
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+            players.swapAt(index, newIndex)
+        }
+        hapticsManager.light()
     }
 }
