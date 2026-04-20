@@ -31,14 +31,13 @@ struct MenuView: View {
             ZStack {
                 RootBackground()
                 
-                VStack(spacing: 20) {
+                VStack(spacing: 16) {
                     // MARK: - Titel
                     AnimatedPokerTitle()
-                        .padding(.top, 60)
+                        .padding(.top, 20)
 
                     // MARK: - Pokerchip Icon
                     PokerChipView()
-                        .padding(.top, 20)
 
                     // MARK: - Spieler (oberhalb der fixen Controls)
                     if isMultiplayerMode {

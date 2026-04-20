@@ -11,7 +11,7 @@ struct PlayersSection: View {
 
     private let rowHeight: CGFloat = 44
     private let rowSpacing: CGFloat = 8
-    private let reservedRows: Int = 3
+    private let reservedRows: Int = 2
 
     private var listHeight: CGFloat {
         CGFloat(reservedRows) * rowHeight + CGFloat(reservedRows - 1) * rowSpacing
@@ -77,14 +77,24 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            // MARK: - Spielerliste (scrollbar ab Spieler 4, eigene Edit-Buttons)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: rowSpacing) {
-                    ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
-                        playerRow(index: index, player: player)
+            // MARK: - Spielerliste (scrollbar, auto-scroll zum letzten Eintrag)
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: rowSpacing) {
+                        ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
+                            playerRow(index: index, player: player)
+                                .id(player.id)
+                        }
+                    }
+                    .padding(.vertical, rowSpacing / 2)
+                }
+                .onChange(of: players.count) { oldValue, newValue in
+                    if newValue > oldValue, let last = players.last {
+                        withAnimation(.easeOut(duration: 0.25)) {
+                            proxy.scrollTo(last.id, anchor: .bottom)
+                        }
                     }
                 }
-                .padding(.vertical, rowSpacing / 2)
             }
             .frame(height: listHeight)
             .padding(.horizontal)
