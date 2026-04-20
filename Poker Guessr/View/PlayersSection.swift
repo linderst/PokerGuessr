@@ -9,8 +9,12 @@ struct PlayersSection: View {
     
     @State private var isEditing = false
 
+    private let rowHeight: CGFloat = 40
+    private let reservedRows: Int = 3
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
+            // MARK: - Header (Bearbeiten immer im Layout, nur sichtbar wenn nötig)
             HStack {
                 Text("Spieler")
                     .font(.headline)
@@ -18,24 +22,24 @@ struct PlayersSection: View {
 
                 Spacer()
 
-                if !players.isEmpty {
-                    Button {
-                        withAnimation { isEditing.toggle() }
-                        hapticsManager.light()
-                    } label: {
-                        Text(isEditing ? "Fertig" : "Bearbeiten")
-                            .foregroundColor(.white)
-                            .font(.subheadline.bold())
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 6)
-                            .background(themeManager.palette.accent)
-                            .clipShape(Capsule())
-                            .shadow(color: themeManager.palette.accent.opacity(0.3), radius: 4, y: 2)
-                    }
+                Button {
+                    withAnimation { isEditing.toggle() }
+                    hapticsManager.light()
+                } label: {
+                    Text(isEditing ? "Fertig" : "Bearbeiten")
+                        .foregroundColor(.white)
+                        .font(.subheadline.bold())
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 6)
+                        .background(themeManager.palette.accent)
+                        .clipShape(Capsule())
                 }
+                .opacity(players.isEmpty ? 0 : 1)
+                .disabled(players.isEmpty)
             }
             .padding(.horizontal)
 
+            // MARK: - Eingabe
             HStack(spacing: 10) {
                 ThemedTextField(
                     text: $newPlayerName,
@@ -68,38 +72,39 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            List {
+            // MARK: - Spielerliste (fixer Platz, kein Rahmen)
+            VStack(spacing: 0) {
                 ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
-                    HStack {
+                    HStack(spacing: 10) {
                         Text("\(index + 1).")
                             .font(.subheadline.bold())
-                            .foregroundColor(themeManager.palette.cardTextSecondary)
+                            .foregroundColor(themeManager.palette.screenTextSecondary)
+                            .frame(width: 22, alignment: .leading)
 
                         Text(player.name)
-                            .foregroundColor(themeManager.palette.cardTextPrimary)
+                            .foregroundColor(themeManager.palette.screenTextPrimary)
+
+                        Spacer()
+
+                        if isEditing {
+                            Button {
+                                withAnimation {
+                                    players.removeAll { $0.id == player.id }
+                                }
+                                hapticsManager.light()
+                            } label: {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title3)
+                                    .foregroundColor(.red.opacity(0.9))
+                            }
+                        }
                     }
-                    .listRowBackground(themeManager.palette.cardBackground)
+                    .frame(height: rowHeight)
+                    .padding(.horizontal)
                 }
-                .if(isEditing) { view in
-                    view
-                        .onMove { from, to in
-                            players.move(fromOffsets: from, toOffset: to)
-                            hapticsManager.light()
-                        }
-                        .onDelete { indexSet in
-                            players.remove(atOffsets: indexSet)
-                            hapticsManager.light()
-                        }
-                }
+                Spacer(minLength: 0)
             }
-            .environment(\.editMode, .constant(isEditing ? .active : .inactive))
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .frame(height: 3 * 48)
-            .background(themeManager.palette.cardBackground.opacity(0.2))
-            .cornerRadius(12)
-            .padding(.horizontal)
-            .opacity(players.isEmpty ? 0 : 1)
+            .frame(height: CGFloat(reservedRows) * rowHeight, alignment: .top)
         }
     }
 }
