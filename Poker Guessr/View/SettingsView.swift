@@ -137,15 +137,9 @@ struct SettingsView: View {
                                     Text("Tipps pro Frage")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                     Spacer()
-                                    Picker("Tipps pro Frage", selection: $tipsCount) {
-                                        ForEach(1...3, id: \.self) { n in
-                                            Text("\(n)").tag(n)
-                                        }
-                                    }
-                                    .pickerStyle(.segmented)
-                                    .frame(width: 140)
-                                    .accessibilityLabel("Tipps pro Frage")
-                                    .accessibilityValue("\(tipsCount)")
+                                    themedSegments(values: [1, 2, 3], selection: $tipsCount)
+                                        .accessibilityLabel("Tipps pro Frage")
+                                        .accessibilityValue("\(tipsCount)")
                                 }
                                 
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
@@ -214,6 +208,45 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .foregroundColor(themeManager.palette.screenTextPrimary)
         }
+    }
+
+    // MARK: - Themed Segments (Ersatz für SegmentedPicker)
+    @ViewBuilder
+    private func themedSegments(values: [Int], selection: Binding<Int>) -> some View {
+        HStack(spacing: 4) {
+            ForEach(values, id: \.self) { value in
+                let isSelected = selection.wrappedValue == value
+                Button {
+                    if !isSelected {
+                        selection.wrappedValue = value
+                        hapticsManager.light()
+                    }
+                } label: {
+                    Text("\(value)")
+                        .font(.subheadline.bold())
+                        .frame(width: 36, height: 32)
+                        .foregroundColor(isSelected
+                                         ? themeManager.palette.onPrimaryButton
+                                         : themeManager.palette.cardTextPrimary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(isSelected
+                                      ? themeManager.palette.accent
+                                      : Color.clear)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(themeManager.palette.accent.opacity(0.15))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(themeManager.palette.accent.opacity(0.5), lineWidth: 1)
+        )
     }
 
     // MARK: - Counter Row (sichtbarer Ersatz für Stepper)
