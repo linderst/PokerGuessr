@@ -23,15 +23,12 @@ struct SettingsView: View {
                 RootBackground()
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 28) {
+                    VStack(alignment: .leading, spacing: 4) {
 
                         // MARK: - Sound
+                        sectionHeader("Sound")
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Sound")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
-
+                            VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $soundEnabled) {
                                     Text("Sound einschalten")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
@@ -61,12 +58,9 @@ struct SettingsView: View {
                         }
 
                         // MARK: - Haptik
+                        sectionHeader("Haptik")
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Haptik")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
-
+                            VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $hapticsEnabled) {
                                     Text("Haptik einschalten")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
@@ -85,12 +79,9 @@ struct SettingsView: View {
                         }
                         
                         // MARK: - Runden
+                        sectionHeader("Runden")
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Runden")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
-
+                            VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $unlimitedRounds) {
                                     Text("Unbegrenzt")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
@@ -110,13 +101,10 @@ struct SettingsView: View {
                             }
                         }
                         
-                        // MARK: - Tipps
+                        // MARK: - Spiellogik
+                        sectionHeader("Spiellogik")
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Tipps")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
-
+                            VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $selectedModePersistent) {
                                     Text("Tipps merken")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
@@ -124,14 +112,8 @@ struct SettingsView: View {
                                 .tint(themeManager.palette.accent)
                                 .accessibilityLabel("Tipps merken")
                                 .accessibilityHint("Merkt sich deine Tipp-Einstellungen für kommende Spiele")
-                            }
-                        }
-                        // MARK: - Spiellogik
-                        settingsCard {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Spiellogik")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
+
+                                Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
 
                                 HStack {
                                     Text("Tipps pro Frage")
@@ -154,12 +136,9 @@ struct SettingsView: View {
                         }
                         
                         // MARK: - Punkte
+                        sectionHeader("Punkte")
                         settingsCard {
                             VStack(alignment: .leading, spacing: 6) {
-                                Text("Punkte")
-                                    .font(.headline)
-                                    .foregroundColor(themeManager.palette.cardTextPrimary)
-
                                 Toggle(isOn: $trackOverallScore) {
                                     Text("Gesamtsieger ermitteln")
                                         .foregroundColor(isMultiplayerMode
@@ -208,6 +187,18 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .foregroundColor(themeManager.palette.screenTextPrimary)
         }
+    }
+
+    // MARK: - Section Header (iOS-Style minimal)
+    @ViewBuilder
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title.uppercased())
+            .font(.caption)
+            .tracking(1.2)
+            .foregroundColor(themeManager.palette.screenTextSecondary)
+            .padding(.horizontal, 4)
+            .padding(.top, 12)
+            .padding(.bottom, 4)
     }
 
     // MARK: - Themed Segments (Ersatz für SegmentedPicker)
@@ -317,11 +308,11 @@ struct SettingsView: View {
     @ViewBuilder
     private func settingsCard<Content: View>(_ content: () -> Content) -> some View {
         content()
-            .padding()
+            .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(themeManager.palette.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 22))
-            .shadow(color: themeManager.palette.border.opacity(0.6), radius: 10, y: 5)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .shadow(color: themeManager.palette.border.opacity(0.35), radius: 6, y: 3)
     }
 }
 
