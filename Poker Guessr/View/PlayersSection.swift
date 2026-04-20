@@ -9,8 +9,13 @@ struct PlayersSection: View {
     
     @State private var isEditing = false
 
-    private let rowHeight: CGFloat = 40
+    private let rowHeight: CGFloat = 44
+    private let rowSpacing: CGFloat = 8
     private let reservedRows: Int = 3
+
+    private var listHeight: CGFloat {
+        CGFloat(reservedRows) * rowHeight + CGFloat(reservedRows - 1) * rowSpacing
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -72,8 +77,8 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            // MARK: - Spielerliste (jede Karte mit eigenem Background)
-            VStack(spacing: 8) {
+            // MARK: - Spielerliste (scrollbar ab Spieler 4, mit Reorder im Edit-Modus)
+            List {
                 ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
                     HStack(spacing: 12) {
                         ZStack {
@@ -90,40 +95,34 @@ struct PlayersSection: View {
                             .foregroundColor(themeManager.palette.cardTextPrimary)
 
                         Spacer()
-
-                        if isEditing {
-                            Button {
-                                withAnimation {
-                                    players.removeAll { $0.id == player.id }
-                                    if players.isEmpty { isEditing = false }
-                                }
-                                hapticsManager.light()
-                            } label: {
-                                Image(systemName: "xmark")
-                                    .font(.footnote.bold())
-                                    .foregroundColor(.white)
-                                    .frame(width: 24, height: 24)
-                                    .background(Color.red.opacity(0.85))
-                                    .clipShape(Circle())
-                            }
-                            .transition(.scale.combined(with: .opacity))
-                        }
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
+                    .frame(height: rowHeight)
                     .background(themeManager.palette.cardBackground.opacity(0.85))
                     .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .shadow(color: themeManager.palette.border.opacity(0.25), radius: 4, y: 2)
-                    .transition(.asymmetric(
-                        insertion: .scale(scale: 0.9).combined(with: .opacity),
-                        removal: .opacity
-                    ))
+                    .shadow(color: themeManager.palette.border.opacity(0.2), radius: 3, y: 1)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: rowSpacing / 2, leading: 0, bottom: rowSpacing / 2, trailing: 0))
                 }
-                Spacer(minLength: 0)
+                .onMove { from, to in
+                    players.move(fromOffsets: from, toOffset: to)
+                    hapticsManager.light()
+                }
+                .onDelete { indexSet in
+                    players.remove(atOffsets: indexSet)
+                    if players.isEmpty { isEditing = false }
+                    hapticsManager.light()
+                }
             }
+            .environment(\.editMode, .constant(isEditing ? .active : .inactive))
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .scrollIndicators(.hidden)
+            .frame(height: listHeight)
             .padding(.horizontal)
-            .frame(height: CGFloat(reservedRows) * (rowHeight + 8), alignment: .top)
-            .animation(.spring(response: 0.35, dampingFraction: 0.75), value: players)
+            .opacity(players.isEmpty ? 0 : 1)
             .animation(.easeInOut(duration: 0.2), value: isEditing)
         }
     }
