@@ -158,6 +158,7 @@ struct EndOfQuestionsView: View {
         }
         .onAppear {
             completedGamesCount += 1
+            SoundManager.shared.play(.complete)
             maybeRequestReview()
         }
     }

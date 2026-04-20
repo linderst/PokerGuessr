@@ -14,6 +14,8 @@ struct SettingsView: View {
     @Binding var separateRanking: Bool
 
     @AppStorage("isMultiplayerMode") private var isMultiplayerMode: Bool = true
+    @AppStorage("soundEnabled") private var soundEnabled: Bool = true
+    @AppStorage("soundVolume") private var soundVolume: Double = 0.7
 
     var body: some View {
         NavigationStack {
@@ -22,6 +24,41 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 28) {
+
+                        // MARK: - Sound
+                        settingsCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Sound")
+                                    .font(.headline)
+                                    .foregroundColor(themeManager.palette.cardTextPrimary)
+
+                                Toggle(isOn: $soundEnabled) {
+                                    Text("Sound einschalten")
+                                        .foregroundColor(themeManager.palette.cardTextPrimary)
+                                }
+                                .tint(themeManager.palette.accent)
+                                .accessibilityLabel("Sound")
+                                .accessibilityHint("Schalte Soundeffekte ein oder aus")
+                                .onChange(of: soundEnabled) { _, newValue in
+                                    if newValue { SoundManager.shared.play(.tap) }
+                                }
+
+                                if soundEnabled {
+                                    HStack(spacing: 12) {
+                                        Image(systemName: "speaker.fill")
+                                            .foregroundColor(themeManager.palette.cardTextSecondary)
+                                        Slider(value: $soundVolume, in: 0...1) { editing in
+                                            if !editing { SoundManager.shared.play(.tap) }
+                                        }
+                                        .tint(themeManager.palette.accent)
+                                        .accessibilityLabel("Lautstärke")
+                                        .accessibilityValue("\(Int(soundVolume * 100)) Prozent")
+                                        Image(systemName: "speaker.wave.3.fill")
+                                            .foregroundColor(themeManager.palette.cardTextSecondary)
+                                    }
+                                }
+                            }
+                        }
 
                         // MARK: - Haptik
                         settingsCard {

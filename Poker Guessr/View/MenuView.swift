@@ -177,6 +177,7 @@ struct MenuView: View {
             
             Button {
                 hapticsManager.medium()
+                SoundManager.shared.play(.tap)
                 startGame = true
             } label: {
                 Text("Spiel starten")

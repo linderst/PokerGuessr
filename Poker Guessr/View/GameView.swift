@@ -415,7 +415,16 @@ struct GameView: View {
             Button(vm.primaryButtonTitle) {
                 let previous = vm.quizState
                 vm.nextState()
-                
+
+                switch vm.quizState {
+                case .tip1, .tip2, .tip3, .answer:
+                    SoundManager.shared.play(.reveal)
+                case .ranking:
+                    SoundManager.shared.play(.success)
+                default:
+                    SoundManager.shared.play(.tap)
+                }
+
                 if previous == .answer {
                     questionID = UUID()
                     if let total = totalRounds, currentRound < total { currentRound += 1 }
@@ -436,6 +445,7 @@ struct GameView: View {
             if vm.canStepBack {
                 Button("Einen Schritt zurück") {
                     haptics.light()
+                    SoundManager.shared.play(.tap)
                     vm.stepBack()
                 }
                 .frame(maxWidth: .infinity)
@@ -450,6 +460,7 @@ struct GameView: View {
             if vm.canSkip {
                 Button("Frage überspringen") {
                     haptics.light()
+                    SoundManager.shared.play(.tap)
                     vm.skip()
                 }
                 .frame(maxWidth: .infinity)
