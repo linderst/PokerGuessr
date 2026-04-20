@@ -35,13 +35,24 @@ struct MenuView: View {
                     // MARK: - Titel
                     AnimatedPokerTitle()
                         .padding(.top, 60)
-                    
-                    // MARK: - Pokerchip Icon
-                    PokerChipView()
-                        .padding(.top, 20)
-                    
+
+                    // MARK: - Pokerchip Icon (nur im Singleplayer-Modus groß)
+                    if !isMultiplayerMode {
+                        PokerChipView()
+                            .padding(.top, 20)
+                    }
+
+                    // MARK: - Spieler (oberhalb der fixen Controls)
+                    if isMultiplayerMode {
+                        PlayersSection(
+                            players: $players,
+                            newPlayerName: $newPlayerName
+                        )
+                        .padding(.top, 12)
+                    }
+
                     Spacer()
-                    
+
                     // MARK: - Spielmodus (Single / Multi)
                     Picker("Spielmodus", selection: $isMultiplayerMode) {
                         Text("Nur Fragen").tag(false)
@@ -50,7 +61,7 @@ struct MenuView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                    
+
                     // MARK: - Kategorie-Auswahl
                     Button {
                         hapticsManager.light()
@@ -76,19 +87,11 @@ struct MenuView: View {
                     .accessibilityHint("Tippe, um die Kategorie zu ändern")
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                    
+
                     // MARK: - Schwierigkeitsgrad
                     DifficultySelector(selectedDifficulty: $selectedDifficulty)
                         .padding(.horizontal)
-                    
-                    // MARK: - Spieler
-                    if isMultiplayerMode {
-                        PlayersSection(
-                            players: $players,
-                            newPlayerName: $newPlayerName
-                        )
-                    }
-                    
+
                     // MARK: - Start-Button
                     startButton
                 }
