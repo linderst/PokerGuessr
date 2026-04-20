@@ -25,12 +25,12 @@ struct SettingsView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {
 
-                        // MARK: - Sound
-                        sectionHeader("Sound")
+                        // MARK: - Sound & Haptik
+                        sectionHeader("Sound & Haptik")
                         settingsCard {
                             VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $soundEnabled) {
-                                    Text("Sound einschalten")
+                                    Text("Sound")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                 }
                                 .tint(themeManager.palette.accent)
@@ -54,15 +54,11 @@ struct SettingsView: View {
                                             .foregroundColor(themeManager.palette.cardTextSecondary)
                                     }
                                 }
-                            }
-                        }
 
-                        // MARK: - Haptik
-                        sectionHeader("Haptik")
-                        settingsCard {
-                            VStack(alignment: .leading, spacing: 10) {
+                                Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
+
                                 Toggle(isOn: $hapticsEnabled) {
-                                    Text("Haptik einschalten")
+                                    Text("Haptik")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
                                 }
                                 .tint(themeManager.palette.accent)
@@ -70,39 +66,13 @@ struct SettingsView: View {
                                 .accessibilityHint("Schalte haptisches Feedback ein oder aus")
                                 .onChange(of: hapticsEnabled) { oldValue, newValue in
                                     hapticsManager.hapticsEnabled = newValue
-                                    
-                                    if newValue {
-                                        hapticsManager.light()   // Mini-Feedback beim Aktivieren
-                                    }
+                                    if newValue { hapticsManager.light() }
                                 }
                             }
                         }
-                        
-                        // MARK: - Runden
-                        sectionHeader("Runden")
-                        settingsCard {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Toggle(isOn: $unlimitedRounds) {
-                                    Text("Unbegrenzt")
-                                        .foregroundColor(themeManager.palette.cardTextPrimary)
-                                }
-                                .tint(themeManager.palette.accent)
-                                .accessibilityLabel("Unbegrenzte Runden")
-                                .accessibilityHint("Wenn aktiviert, wird ohne Rundenlimit gespielt")
 
-                                if !unlimitedRounds {
-                                    counterRow(
-                                        label: "Runden: \(roundCount)",
-                                        value: $roundCount,
-                                        range: 1...20,
-                                        accessibilityLabel: "Rundenanzahl"
-                                    )
-                                }
-                            }
-                        }
-                        
-                        // MARK: - Spiellogik
-                        sectionHeader("Spiellogik")
+                        // MARK: - Tipps Einstellungen
+                        sectionHeader("Tipps Einstellungen")
                         settingsCard {
                             VStack(alignment: .leading, spacing: 10) {
                                 Toggle(isOn: $selectedModePersistent) {
@@ -123,10 +93,9 @@ struct SettingsView: View {
                                         .accessibilityLabel("Tipps pro Frage")
                                         .accessibilityValue("\(tipsCount)")
                                 }
-                                
+
                                 Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
-                                
-                                // Getrennte Rangliste
+
                                 Toggle(isOn: $separateRanking) {
                                     Text("Lösung als Tipp verwenden")
                                         .foregroundColor(themeManager.palette.cardTextPrimary)
@@ -134,11 +103,30 @@ struct SettingsView: View {
                                 .tint(themeManager.palette.accent)
                             }
                         }
-                        
-                        // MARK: - Punkte
-                        sectionHeader("Punkte")
+
+                        // MARK: - Spiellogik (Runden & Punkte)
+                        sectionHeader("Spiellogik")
                         settingsCard {
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Toggle(isOn: $unlimitedRounds) {
+                                    Text("Unbegrenzte Runden")
+                                        .foregroundColor(themeManager.palette.cardTextPrimary)
+                                }
+                                .tint(themeManager.palette.accent)
+                                .accessibilityLabel("Unbegrenzte Runden")
+                                .accessibilityHint("Wenn aktiviert, wird ohne Rundenlimit gespielt")
+
+                                if !unlimitedRounds {
+                                    counterRow(
+                                        label: "Runden: \(roundCount)",
+                                        value: $roundCount,
+                                        range: 1...20,
+                                        accessibilityLabel: "Rundenanzahl"
+                                    )
+                                }
+
+                                Divider().background(themeManager.palette.cardTextSecondary.opacity(0.3))
+
                                 Toggle(isOn: $trackOverallScore) {
                                     Text("Gesamtsieger ermitteln")
                                         .foregroundColor(isMultiplayerMode
@@ -162,6 +150,7 @@ struct SettingsView: View {
                         }
 
                         // MARK: - Info
+                        Spacer(minLength: 8)
                         NavigationLink {
                             AboutView()
                                 .environmentObject(themeManager)
