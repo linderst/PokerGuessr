@@ -72,17 +72,22 @@ struct PlayersSection: View {
             }
             .padding(.horizontal)
 
-            // MARK: - Spielerliste (fixer Platz, kein Rahmen)
-            VStack(spacing: 0) {
+            // MARK: - Spielerliste (jede Karte mit eigenem Background)
+            VStack(spacing: 8) {
                 ForEach(Array(players.enumerated()), id: \.element.id) { index, player in
-                    HStack(spacing: 10) {
-                        Text("\(index + 1).")
-                            .font(.subheadline.bold())
-                            .foregroundColor(themeManager.palette.screenTextSecondary)
-                            .frame(width: 22, alignment: .leading)
+                    HStack(spacing: 12) {
+                        ZStack {
+                            Circle()
+                                .fill(themeManager.palette.accent)
+                                .frame(width: 28, height: 28)
+                            Text("\(index + 1)")
+                                .font(.caption.bold())
+                                .foregroundColor(.white)
+                        }
 
                         Text(player.name)
-                            .foregroundColor(themeManager.palette.screenTextPrimary)
+                            .font(.subheadline.weight(.medium))
+                            .foregroundColor(themeManager.palette.cardTextPrimary)
 
                         Spacer()
 
@@ -90,21 +95,36 @@ struct PlayersSection: View {
                             Button {
                                 withAnimation {
                                     players.removeAll { $0.id == player.id }
+                                    if players.isEmpty { isEditing = false }
                                 }
                                 hapticsManager.light()
                             } label: {
-                                Image(systemName: "minus.circle.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.red.opacity(0.9))
+                                Image(systemName: "xmark")
+                                    .font(.footnote.bold())
+                                    .foregroundColor(.white)
+                                    .frame(width: 24, height: 24)
+                                    .background(Color.red.opacity(0.85))
+                                    .clipShape(Circle())
                             }
+                            .transition(.scale.combined(with: .opacity))
                         }
                     }
-                    .frame(height: rowHeight)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(themeManager.palette.cardBackground.opacity(0.85))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .shadow(color: themeManager.palette.border.opacity(0.25), radius: 4, y: 2)
+                    .transition(.asymmetric(
+                        insertion: .scale(scale: 0.9).combined(with: .opacity),
+                        removal: .opacity
+                    ))
                 }
                 Spacer(minLength: 0)
             }
-            .frame(height: CGFloat(reservedRows) * rowHeight, alignment: .top)
+            .padding(.horizontal)
+            .frame(height: CGFloat(reservedRows) * (rowHeight + 8), alignment: .top)
+            .animation(.spring(response: 0.35, dampingFraction: 0.75), value: players)
+            .animation(.easeInOut(duration: 0.2), value: isEditing)
         }
     }
 }
