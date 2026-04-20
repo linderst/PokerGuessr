@@ -11,10 +11,10 @@ struct PlayersSection: View {
 
     private let rowHeight: CGFloat = 44
     private let rowSpacing: CGFloat = 8
-    private let reservedRows: Int = 2
+    private let minRows: Int = 2
 
-    private var listHeight: CGFloat {
-        CGFloat(reservedRows) * rowHeight + CGFloat(reservedRows - 1) * rowSpacing
+    private var minListHeight: CGFloat {
+        CGFloat(minRows) * rowHeight + CGFloat(minRows - 1) * rowSpacing
     }
 
     var body: some View {
@@ -96,7 +96,7 @@ struct PlayersSection: View {
                     }
                 }
             }
-            .frame(height: listHeight)
+            .frame(minHeight: minListHeight, maxHeight: .infinity)
             .padding(.horizontal)
             .opacity(players.isEmpty ? 0 : 1)
             .animation(.spring(response: 0.3, dampingFraction: 0.8), value: players)

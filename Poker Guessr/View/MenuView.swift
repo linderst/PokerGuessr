@@ -45,9 +45,10 @@ struct MenuView: View {
                             players: $players,
                             newPlayerName: $newPlayerName
                         )
+                        .padding(.bottom, 20)
+                    } else {
+                        Spacer(minLength: 0)
                     }
-
-                    Spacer(minLength: 0)
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     VStack(spacing: 20) {
