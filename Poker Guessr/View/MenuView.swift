@@ -24,7 +24,7 @@ struct MenuView: View {
     @AppStorage("trackOverallScore") private var trackOverallScore: Bool = false
     @AppStorage("isMultiplayerMode") private var isMultiplayerMode: Bool = true
     @AppStorage("tipsCount") private var tipsCount: Int = 2
-    @AppStorage("separateRanking") private var separateRanking: Bool = true
+    @AppStorage("useSolutionAsTip") private var separateRanking: Bool = true
     
     var body: some View {
         NavigationStack {
