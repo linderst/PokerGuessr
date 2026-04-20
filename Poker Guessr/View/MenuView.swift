@@ -172,11 +172,6 @@ struct MenuView: View {
     // MARK: - Start Button
     private var startButton: some View {
         VStack(spacing: 8) {
-            Text("Bitte füge mindestens 2 Spieler hinzu")
-                .font(.caption)
-                .foregroundColor(themeManager.palette.cardTextSecondary)
-                .opacity(isMultiplayerMode && players.count < 2 ? 1 : 0)
-
             Button {
                 hapticsManager.medium()
                 SoundManager.shared.play(.tap)
@@ -203,6 +198,14 @@ struct MenuView: View {
             .accessibilityHint(isMultiplayerMode && players.count < 2
                                ? "Füge mindestens zwei Spieler hinzu, um zu starten"
                                : "Startet eine neue Runde")
+            .overlay(alignment: .bottom) {
+                Text("Bitte füge mindestens 2 Spieler hinzu")
+                    .font(.caption)
+                    .foregroundColor(themeManager.palette.cardTextSecondary)
+                    .opacity(isMultiplayerMode && players.count < 2 ? 1 : 0)
+                    .offset(y: 24)
+                    .allowsHitTesting(false)
+            }
         }
         .padding(.horizontal)
         .padding(.bottom, 50)
