@@ -5,10 +5,13 @@
 
 import Foundation
 import Combine
+import OSLog
 import FirebaseFirestore
 
 @MainActor
 class GameViewModel: ObservableObject {
+
+    private static let logger = Logger(subsystem: "com.stefanlinder.pokerguessr", category: "Game")
     
     // MARK: - Published State
     @Published var allQuestions: [QuizItem] = []
@@ -79,7 +82,7 @@ class GameViewModel: ObservableObject {
             self.allQuestions = loaded
             self.isOutOfQuestions = loaded.isEmpty
         } catch {
-            print("❌ Fehler beim Laden aus Firestore:", error)
+            Self.logger.error("Fehler beim Laden aus Firestore: \(error.localizedDescription, privacy: .public)")
             self.errorMessage = "Fehler beim Laden der Fragen. Bitte überprüfe deine Internetverbindung."
             self.showError = true
             self.allQuestions = []

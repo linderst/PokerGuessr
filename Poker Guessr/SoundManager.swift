@@ -1,9 +1,12 @@
 import Foundation
 import AVFoundation
+import OSLog
 
 @MainActor
 final class SoundManager {
     static let shared = SoundManager()
+
+    private static let logger = Logger(subsystem: "com.stefanlinder.pokerguessr", category: "Sound")
 
     enum Sound: String, CaseIterable {
         case tap        // Kurzer Click für Buttons
@@ -28,7 +31,7 @@ final class SoundManager {
             )
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
-            print("⚠️ AudioSession setup failed: \(error)")
+            Self.logger.warning("AudioSession setup failed: \(error.localizedDescription, privacy: .public)")
         }
     }
 
@@ -43,7 +46,7 @@ final class SoundManager {
                 player.prepareToPlay()
                 players[sound] = player
             } catch {
-                print("⚠️ Konnte Sound \(sound.rawValue) nicht laden: \(error)")
+                Self.logger.warning("Konnte Sound \(sound.rawValue, privacy: .public) nicht laden: \(error.localizedDescription, privacy: .public)")
             }
         }
     }

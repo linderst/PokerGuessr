@@ -1,0 +1,8 @@
+Erste Version von Poker Guessr.
+
+• Hunderte Schätzfragen aus elf Kategorien
+• Drei Schwierigkeitsstufen
+• Multiplayer auf einem Gerät, mit Punkten und Rangliste
+• Drei progressive Hinweise pro Frage
+• Vier Themes
+• Haptisches Feedback und VoiceOver-Unterstützung
